@@ -31,7 +31,7 @@ import ImageUpload from "@/components/ImageUpload";
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
-  onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
+  onSubmit: (data: T) => Promise<{ success: boolean; error?: string } | void>;
   type: "SIGN_IN" | "SIGN_UP";
 }
 
