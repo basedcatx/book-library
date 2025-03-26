@@ -32,9 +32,9 @@
   }
 
   .hide-scrollbar::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-    border-radius: 0px;
+    width: 0;
+    height: 0;
+    border-radius: 0;
   }
 
   .hide-scrollbar::-webkit-scrollbar-track {
@@ -43,7 +43,7 @@
 
   .hide-scrollbar::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: 0px;
+    border-radius: 0;
   }
 
   .hide-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -160,7 +160,7 @@
   }
 
   .book-copies p span {
-    @apply ml-2 font-semibold text-primary;
+    @apply ml-2 font-semibold text-light-200;
   }
 
   .book-description {
@@ -168,7 +168,7 @@
   }
 
   .book-overview_btn {
-    @apply mt-4 min-h-14 w-fit bg-primary text-dark-100 hover:bg-primary/90 max-md:w-full !important;
+    @apply mt-4 min-h-14 w-fit bg-light-200 text-dark-100 hover:bg-primary/90 max-md:w-full !important;
   }
 
   /* File Upload */

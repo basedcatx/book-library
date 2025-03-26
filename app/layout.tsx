@@ -21,8 +21,8 @@ const bebasNeue = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "xBooks Library Management",
-  description: "xBooks is a university book borrowing management system",
+  title: "Book Library",
+  description: "Book Library is a university book borrowing management system",
 };
 
 export default function RootLayout({

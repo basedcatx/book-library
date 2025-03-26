@@ -34,7 +34,7 @@ const ImageUpload = ({
   onFileChange: (filePath: string) => void;
 }) => {
   const ikUploadRef = useRef(null);
-  const [file, setFile] = useState<{ filepath: string } | null>(null);
+  const [file, setFile] = useState<{ url: string; name: string } | null>(null);
   const { toast } = useToast();
 
   const onError = (err: any) => {
@@ -45,12 +45,15 @@ const ImageUpload = ({
       variant: "destructive",
     });
   };
+
   const onSuccess = (res: any) => {
-    onFileChange(res.filepath);
+    if (!res) return;
+    onFileChange(res.url);
     setFile(res);
+    console.log(res);
     toast({
       title: "Image uploaded successfully",
-      description: `${res.filepath} uploaded successfully`,
+      description: `${res.name} uploaded successfully`,
     });
   };
 
@@ -80,22 +83,25 @@ const ImageUpload = ({
           }
         }}
       >
-        <Image
-          src={"/icons/upload.svg"}
-          alt={"Upload icon"}
-          width={20}
-          height={20}
-          className={"object-contain"}
-        />
-
-        <p className={"text-base text-light-100"}>Upload a file</p>
+        {!file && (
+          <>
+            <Image
+              src={"/icons/upload.svg"}
+              alt={"Upload icon"}
+              width={20}
+              height={20}
+              className={"object-contain"}
+            />
+            <p className={"text-base text-light-100"}>Upload a file</p>
+          </>
+        )}
 
         {file && (
           <IKImage
-            alt={file.filepath}
-            path={file.filepath}
+            alt={file.name}
+            path={file.filePath}
             width={500}
-            height={500}
+            height={300}
           />
         )}
       </button>
