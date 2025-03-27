@@ -34,7 +34,11 @@ const ImageUpload = ({
   onFileChange: (filePath: string) => void;
 }) => {
   const ikUploadRef = useRef(null);
-  const [file, setFile] = useState<{ url: string; name: string } | null>(null);
+  const [file, setFile] = useState<{
+    url: string;
+    name: string;
+    filePath: string;
+  } | null>(null);
   const { toast } = useToast();
 
   const onError = (err: any) => {

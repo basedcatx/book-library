@@ -13,7 +13,7 @@ interface Book {
   coverUrl: string;
   video: string;
   summary: string;
-  isLoadedBook?: boolean;
+  isLoanedBook?: boolean;
 }
 
 interface AuthCredentials extends FieldValues {
