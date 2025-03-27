@@ -4,7 +4,6 @@ import React from "react";
 import localFont from "next/font/local";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
-import { session } from "@auth/core/lib/actions";
 import { auth } from "@/auth";
 
 const ibmPlexSans = localFont({
