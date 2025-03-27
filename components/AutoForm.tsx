@@ -132,7 +132,7 @@ const AutoForm = <T extends FieldValues>({
         </form>
       </Form>
       <p className={"text-center text-base font-medium"}>
-        {isSignedIn ? "New to xBooks? " : "Already have an account? "}
+        {isSignedIn ? "New to Book Library? " : "Already have an account? "}
 
         <Link
           href={isSignedIn ? "/sign-up" : "/sign-in"}
