@@ -2,13 +2,14 @@
 
 import React from "react";
 import AutoForm from "@/components/AutoForm";
-import { signInScheme, signupScheme } from "@/lib/validations";
+import { signupScheme } from "@/lib/validations";
+import { signUp } from "@/lib/actions/auth";
 
 const Page = () => {
   return (
     <AutoForm
       type={"SIGN_UP"}
-      scheme={signupScheme}
+      schema={signupScheme}
       defaultValues={{
         email: "",
         password: "",
@@ -16,7 +17,7 @@ const Page = () => {
         universityId: "",
         universityCard: "",
       }}
-      onSubmit={() => {}}
+      onSubmit={signUp}
     />
   );
 };

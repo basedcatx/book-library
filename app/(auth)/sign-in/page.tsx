@@ -2,17 +2,18 @@
 import React from "react";
 import AutoForm from "@/components/AutoForm";
 import { signInScheme } from "@/lib/validations";
+import { signInWithCredentials } from "@/lib/actions/auth";
 
 const Page = () => {
   return (
     <AutoForm
       type={"SIGN_IN"}
-      scheme={signInScheme}
+      schema={signInScheme}
       defaultValues={{
         email: "",
         password: "",
       }}
-      onSubmit={async () => {}}
+      onSubmit={signInWithCredentials}
     />
   );
 };

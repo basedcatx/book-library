@@ -1,3 +1,5 @@
+import { FieldValues } from "react-hook-form";
+
 interface Book {
   id: number;
   title: string;
@@ -12,4 +14,12 @@ interface Book {
   video: string;
   summary: string;
   isLoadedBook?: boolean;
+}
+
+interface AuthCredentials extends FieldValues {
+  fullName: string;
+  email: string;
+  password: string;
+  universityId: string;
+  universityCard: string;
 }

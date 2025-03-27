@@ -27,11 +27,13 @@ import {
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/app/constants";
 import ImageUpload from "@/components/ImageUpload";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
-  onSubmit: (data: T) => Promise<{ success: boolean; error?: string } | void>;
+  onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
   type: "SIGN_IN" | "SIGN_UP";
 }
 
@@ -41,16 +43,37 @@ const AutoForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+  const router = useRouter();
+  const isSignedIn = type === "SIGN_IN";
+
   const auth_form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    await onSubmit(data);
-  };
+    console.log("handle submit");
+    console.log("data", data);
+    if (!data) return;
+    const res = await onSubmit(data);
 
-  const isSignedIn = type === "SIGN_IN";
+    if (res?.success) {
+      toast({
+        title: "Success",
+        description: isSignedIn
+          ? "You have successfully signed in"
+          : "You have successfully signed up",
+      });
+
+      router.push("/");
+    } else {
+      toast({
+        title: isSignedIn ? "Error signing in" : "Error signing up",
+        description: res?.error,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className={"flex flex-col gap-4"}>
@@ -64,7 +87,11 @@ const AutoForm = <T extends FieldValues>({
       </p>
       <Form {...auth_form}>
         <form
-          onSubmit={auth_form.handleSubmit(handleSubmit)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            auth_form.handleSubmit(handleSubmit)();
+            console.log("form");
+          }}
           className="w-full space-y-6"
         >
           {Object.keys(defaultValues).map((key) => (

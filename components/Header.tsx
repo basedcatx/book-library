@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const pathName = usePathname();
@@ -22,6 +23,14 @@ const Header = () => {
         >
           Library
         </Link>
+        <li>
+          <Link href={"/my-profile"}>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </Link>
+        </li>
       </ul>
     </header>
   );
