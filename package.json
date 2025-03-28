@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack && pnpm db:studio",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -19,6 +19,9 @@
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-toast": "^1.2.6",
+    "@upstash/ratelimit": "^2.0.5",
+    "@upstash/redis": "^1.34.6",
+    "@upstash/workflow": "^0.2.12",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
