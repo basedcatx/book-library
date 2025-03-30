@@ -6,10 +6,11 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { AuthCredentials } from "@/types";
-import header from "@/components/Header";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
+import { workFlowClient } from "@/lib/workflow";
+import config from "@/lib/config";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,
@@ -72,7 +73,16 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
+    await workFlowClient.trigger({
+      url: `${config.env.prodApiEndpoint}/api/workflow/onboarding`,
+      body: {
+        email,
+        fullName,
+      },
+    });
+
     await signInWithCredentials({ email, password });
+
     return { success: true };
   } catch (error) {
     console.log(error, "Sign up failed!");

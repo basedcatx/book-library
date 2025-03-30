@@ -90,7 +90,6 @@ const AutoForm = <T extends FieldValues>({
           onSubmit={(e) => {
             e.preventDefault();
             auth_form.handleSubmit(handleSubmit)();
-            console.log("form");
           }}
           className="w-full space-y-6"
         >

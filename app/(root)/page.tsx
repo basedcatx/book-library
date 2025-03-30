@@ -2,13 +2,10 @@ import React, { Fragment } from "react";
 import BookOverview from "@/components/BookOverview";
 import BookList from "@/components/BookList";
 import { sampleBooks } from "@/app/constants";
-import { db } from "@/database/drizzle";
-import users from "@/database/schema";
+import config from "@/lib/config";
+import emailJs from "@emailjs/browser";
 
 const Page = async () => {
-  const result = await db.select().from(users);
-  console.log(JSON.stringify(result, null, 2));
-
   return (
     <Fragment>
       <BookOverview {...sampleBooks[0]} />
