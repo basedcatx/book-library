@@ -24,6 +24,8 @@ const authenticator = async () => {
     const { signature, expire, token } = data;
     return { token, expire, signature };
   } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     throw new Error(`Authentication failed with error: ${error.message}`);
   }
 };
@@ -40,7 +42,8 @@ const ImageUpload = ({
     filePath: string;
   } | null>(null);
   const { toast } = useToast();
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const onError = (err: any) => {
     console.error(err.message);
     toast({
@@ -50,7 +53,13 @@ const ImageUpload = ({
     });
   };
 
-  const onSuccess = (res: any) => {
+  const onSuccess = (
+    res: {
+      url: string;
+      name: string;
+      filePath: string;
+    } | null,
+  ) => {
     if (!res) return;
     onFileChange(res.url);
     setFile(res);

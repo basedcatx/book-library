@@ -1,6 +1,6 @@
 import { Client as WorkFlowClient } from "@upstash/workflow";
 import config from "@/lib/config";
-import nodemailer, { SentMessageInfo } from "nodemailer";
+import nodemailer from "nodemailer";
 import { EMAIL_TEMPLATE } from "@/app/constants";
 
 export const workFlowClient = new WorkFlowClient({
@@ -25,7 +25,7 @@ export const SendEmail = async ({
   body,
   companyEmail = "basedcatx@gmail.com",
 }: Record<string, string>) => {
-  const info: SentMessageInfo = await transporter.sendMail({
+  await transporter.sendMail({
     from: '"INFO @ The Book Library" <basedcatx@book-library-lac.vercel.app>', // sender address
     to: email, // list of receivers
     subject: subject, // Subject line text body
@@ -34,10 +34,4 @@ export const SendEmail = async ({
       body,
     }), // html body
   });
-
-  if (info?.messageId) {
-    return { success: true, message_id: info.messageId };
-  }
-
-  throw new Error("Failed to send email email message", info.error.toString());
 };

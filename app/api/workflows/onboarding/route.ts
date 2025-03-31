@@ -47,11 +47,11 @@ export const { POST } = serve<InitialData>(async (context) => {
       email,
       name: fullName,
       subject: "Welcome to the Book Library!",
-      body: `Welcome ${fullName} to the Book Library, Make sure to check out our large collections, see you around!`,
+      body: `Hey! ${fullName}, welcome to The Book Library, Make sure to check out our large collections, see you around!, grab maybe a few and don't forget to return it on time :) just kidding, have fun!`,
     });
   });
 
-  await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
+  await context.sleep("wait-for-3-days", THREE_DAYS_IN_MS / 1000);
 
   while (true) {
     const state = await context.run("check-user-state", async () => {
@@ -78,6 +78,6 @@ export const { POST } = serve<InitialData>(async (context) => {
       });
     }
 
-    await context.sleep("wait-for-1-month", 60 * 60 * 24 * 30);
+    await context.sleep("wait-for-1-month", THIRTY_DAYS_IN_MS / 1000);
   }
 });
