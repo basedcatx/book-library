@@ -43,12 +43,16 @@ export const { POST } = serve<InitialData>(async (context) => {
   const { email, fullName } = context.requestPayload;
 
   await context.run("new-signup", async () => {
-    await SendEmail({
-      email,
-      name: fullName,
-      subject: "Welcome to the Book Library!",
-      body: `Hey! ${fullName}, welcome to The Book Library, Make sure to check out our large collections, see you around!, grab maybe a few and don't forget to return it on time :) just kidding, have fun!`,
-    });
+    try {
+      await SendEmail({
+        email,
+        name: fullName,
+        subject: "Welcome to the Book Library!",
+        body: `Hey! ${fullName}, welcome to The Book Library, Make sure to check out our large collections, see you around!, grab maybe a few and don't forget to return it on time :) just kidding, have fun!`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   await context.sleep("wait-for-3-days", THREE_DAYS_IN_MS / 1000);

@@ -75,7 +75,7 @@ export const EMAIL_TEMPLATE = ({
             style="display: inline-block; text-decoration: none; outline: 2px; color: #fc0038; padding: px 16px; border-radius: 4px;"
             href="https://book-library-lac.vercel.app/" target="_blank" rel="noopener"> The Book Library </a></span>
         </p>
-        <p>Best regards,<br/>The Book Library Team </p>
+        <p>Best regards,<br/>The Book Library Team &copy; &#169; </p>
     </div>
 </div>`;
 };
