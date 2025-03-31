@@ -29,7 +29,6 @@ import { FIELD_NAMES, FIELD_TYPES } from "@/app/constants";
 import ImageUpload from "@/components/ImageUpload";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { SendEmail } from "@/lib/workflow";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;

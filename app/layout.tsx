@@ -5,8 +5,6 @@ import localFont from "next/font/local";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-import emailJs from "@emailjs/browser";
-import config from "@/lib/config";
 
 const ibmPlexSans = localFont({
   src: [
