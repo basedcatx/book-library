@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BookCover from "@/components/BookCover";
 import { Book } from "@/types";
+import Loading from "@/components/Loading";
 
 const BookOverview = ({
   title,
@@ -44,6 +45,7 @@ const BookOverview = ({
         </div>
         <p className="book-description">{description}</p>
         <Button className="book-overview_btn">
+          <Loading isHidden={false} />
           <Image src="/icons/book.svg" alt="book" width={20} height={20} />
           <p className="font-bebas-neue text-xl text-dark-400">Borrow</p>
         </Button>

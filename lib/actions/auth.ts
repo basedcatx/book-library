@@ -13,7 +13,7 @@ import { workFlowClient } from "@/lib/workflow";
 import config from "@/lib/config";
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password">,
+  params: Pick<AuthCredentials, "email" | "password" | "fullName">,
 ) => {
   const { email, password } = params;
 
@@ -61,8 +61,6 @@ export const signUp = async (params: AuthCredentials) => {
     .where(eq(users.email, email))
     .limit(1);
 
-  console.log(existingUser);
-
   if (existingUser.length * 1 > 0) {
     return { success: false, error: "User already exists" };
   }
@@ -79,14 +77,14 @@ export const signUp = async (params: AuthCredentials) => {
     });
 
     await workFlowClient.trigger({
-      url: `${config.env.prodApiEndpoint}/api/workflow/onboarding`,
+      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
       body: {
         email,
         fullName,
       },
     });
 
-    await signInWithCredentials({ email, password });
+    await signInWithCredentials({ email, password, fullName });
 
     return { success: true };
   } catch (error) {

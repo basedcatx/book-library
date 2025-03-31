@@ -23,7 +23,6 @@ export const SendEmail = async ({
   email,
   subject,
   body,
-  name,
   companyEmail = "basedcatx@gmail.com",
 }: Record<string, string>) => {
   const info: SentMessageInfo = await transporter.sendMail({
@@ -33,7 +32,6 @@ export const SendEmail = async ({
     html: EMAIL_TEMPLATE({
       company_email: companyEmail,
       body,
-      name,
     }), // html body
   });
 

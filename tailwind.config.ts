@@ -107,6 +107,20 @@ export default {
       backgroundImage: {
         pattern: "url('/images/pattern.webp')",
       },
+      animate: {
+        spin_slow: "spin 3s linear infinite",
+        rotate: "rotate 2s ease-in-out infinite",
+      },
+      keyframes: {
+        rotate: {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
+      },
     },
   },
   plugins: [animate],

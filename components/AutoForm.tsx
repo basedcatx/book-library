@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodType } from "zod";
@@ -29,6 +29,7 @@ import { FIELD_NAMES, FIELD_TYPES } from "@/app/constants";
 import ImageUpload from "@/components/ImageUpload";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -46,15 +47,19 @@ const AutoForm = <T extends FieldValues>({
   const router = useRouter();
   const isSignedIn = type === "SIGN_IN";
 
+  const [isHidden, setIsHidden] = useState<boolean>(true);
+
   const auth_form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    console.log("handle submit");
-    console.log("data", data);
-    if (!data) return;
+    setIsHidden(false);
+    if (!data) {
+      setIsHidden(true);
+      return;
+    }
     const res = await onSubmit(data);
 
     if (res?.success) {
@@ -67,6 +72,7 @@ const AutoForm = <T extends FieldValues>({
 
       router.push("/");
     } else {
+      setIsHidden(true);
       toast({
         title: isSignedIn ? "Error signing in" : "Error signing up",
         description: res?.error,
@@ -126,6 +132,7 @@ const AutoForm = <T extends FieldValues>({
           ))}
 
           <Button type="submit" className={"form-btn"}>
+            <Loading isHidden={isHidden} />
             {isSignedIn ? "Sign in" : "Sign up"}
           </Button>
         </form>
