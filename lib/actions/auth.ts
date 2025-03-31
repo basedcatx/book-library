@@ -36,9 +36,12 @@ export const signInWithCredentials = async (
     }
 
     return { success: true };
-  } catch (err) {
+  } catch (err: any) {
     console.error(err, "Automatic signIn with failed!");
-    return { success: false, error: "Sign in error!" };
+    return {
+      success: false,
+      error: "Most likely invalid credentials! Check your email/password!",
+    };
   }
 };
 
@@ -58,7 +61,9 @@ export const signUp = async (params: AuthCredentials) => {
     .where(eq(users.email, email))
     .limit(1);
 
-  if (existingUser.length > 0) {
+  console.log(existingUser);
+
+  if (existingUser.length * 1 > 0) {
     return { success: false, error: "User already exists" };
   }
 

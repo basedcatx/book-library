@@ -2,8 +2,6 @@ import React, { Fragment } from "react";
 import BookOverview from "@/components/BookOverview";
 import BookList from "@/components/BookList";
 import { sampleBooks } from "@/app/constants";
-import config from "@/lib/config";
-import emailJs from "@emailjs/browser";
 
 const Page = async () => {
   return (

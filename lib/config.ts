@@ -11,22 +11,12 @@ const config = {
     upstash: {
       redisUrl: process.env.UPSTASH_REDIS_URL!,
       redisToken: process.env.UPSTASH_REDIS_TOKEN!,
-      qstashUrl: process.env.UPSTASH_QSTASH_URL!,
-      qstashToken: process.env.UPSTASH_QSTASH_TOKEN!,
+      qstashUrl: process.env.UPSLASH_QSTASH_URL!,
+      qstashToken: process.env.UPSLASH_QSTASH_TOKEN!,
     },
-
-    elasticEmail: {
-      url: process.env.ELASTIC_EMAIL_URL!,
-      username: process.env.ELASTIC_EMAIL_USERNAME!,
-      password: process.env.ELASTIC_EMAIL_PASSWORD!,
-      port: process.env.ELASTIC_EMAIL_PORT!,
-    },
-
-    emailJs: {
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-      privateKey: process.env.EMAILJS_PRIVATE_KEY,
-      templateKey: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_KEY!,
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+    google: {
+      username: process.env.GOOGLE_APP_EMAIL_USERNAME!,
+      password: process.env.GOOGLE_APP_EMAIL_PASS!,
     },
   },
 };

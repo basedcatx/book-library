@@ -46,7 +46,7 @@ export const { POST } = serve<InitialData>(async (context) => {
     await SendEmail({
       email,
       name: fullName,
-      subject: "Welcome to the Book Library",
+      subject: "Welcome to the Book Library!",
       body: `Welcome ${fullName} to the Book Library, Make sure to check out our large collections, see you around!`,
     });
   });

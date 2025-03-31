@@ -55,6 +55,31 @@ export const FIELD_TYPES = {
   password: "password",
 };
 
+export const EMAIL_TEMPLATE = ({
+  company_email,
+  body,
+}: {
+  company_email: string;
+  body: string;
+}): string => {
+  return `<div style="font-family: system-ui, sans-serif, Arial; font-size: 16px; padding: 8px 10px; line-height: 1.5;">
+    <div style="max-width: 600px; margin: auto; padding-top: 16px; padding-right: 16px; padding-bottom: 16px;">
+       
+        <p>${body}</p>
+
+        <p>If you have any questions or need help, our support team is just an email away at&nbsp;<a
+            style="text-decoration: none; outline: none; color: #fc0038;"
+            href="mailto:${company_email}">${company_email}</a>. We're here to assist you every step of the way!</p>
+
+        <p><span style="color: #e03e2d;"><a
+            style="display: inline-block; text-decoration: none; outline: 2px; color: #fc0038; padding: px 16px; border-radius: 4px;"
+            href="https://book-library-lac.vercel.app/" target="_blank" rel="noopener"> The Book Library </a></span>
+        </p>
+        <p>Best regards,<br/>The Book Library Team </p>
+    </div>
+</div>`;
+};
+
 export const sampleBooks = [
   {
     id: 1,
