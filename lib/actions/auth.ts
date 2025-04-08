@@ -9,8 +9,9 @@ import { AuthCredentials } from "@/types";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
-import { workFlowClient } from "@/lib/workflow";
 import config from "@/lib/config";
+import { Client } from "@upstash/workflow";
+import { workFlowClient } from "@/lib/workflow";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password" | "fullName">,
@@ -68,6 +69,14 @@ export const signUp = async (params: AuthCredentials) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
+    await workFlowClient.trigger({
+      url: `${config.env.prodApiEndpoint!}/api/workflows/onboarding`,
+      body: {
+        email,
+        fullName,
+      },
+    });
+
     await db.insert(users).values({
       fullName,
       email,
@@ -76,19 +85,11 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    await workFlowClient.trigger({
-      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
-      body: {
-        email,
-        fullName,
-      },
-    });
-
     await signInWithCredentials({ email, password, fullName });
 
     return { success: true };
   } catch (error) {
     console.log(error, "Sign up failed!");
-    return { success: false, error: "Sign up error!" };
+    return { success: false, error: "Sign up error! Please try again later!" };
   }
 };

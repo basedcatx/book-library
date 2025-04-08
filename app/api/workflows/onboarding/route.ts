@@ -42,13 +42,15 @@ const getUserState = async (email: string): Promise<UserState> => {
 export const { POST } = serve<InitialData>(async (context) => {
   const { email, fullName } = context.requestPayload;
 
+  // console.log(context);
+
   await context.run("new-signup", async () => {
     try {
       await SendEmail({
         email,
         name: fullName,
         subject: "Welcome to the Book Library!",
-        body: `Hey! ${fullName}, welcome to The Book Library, Make sure to check out our large collections, see you around!, grab maybe a few and don't forget to return it on time :) just kidding, have fun!`,
+        body: `Hey! ${fullName} </br> </br>, Welcome to The Book Library. Make sure to check out our large collections, grab maybe a few and don't forget to return it on time :) just kidding, have fun! see ya!`,
       });
     } catch (error) {
       console.log(error);

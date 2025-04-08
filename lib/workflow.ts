@@ -1,10 +1,10 @@
-import { Client as WorkFlowClient } from "@upstash/workflow";
+import { Client, Client as WorkFlowClient } from "@upstash/workflow";
 import config from "@/lib/config";
 import nodemailer from "nodemailer";
 import { EMAIL_TEMPLATE } from "@/app/constants";
 
-export const workFlowClient = new WorkFlowClient({
-  baseUrl: config.env.upstash.qstashUrl,
+export const workFlowClient: Client = new WorkFlowClient({
+  baseUrl: config.env.upstash.qstashUrl!,
   token: config.env.upstash.qstashToken,
 });
 

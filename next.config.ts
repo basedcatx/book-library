@@ -15,6 +15,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "ik.imagekit.io",
       },
+
+      {
+        protocol: "https",
+        hostname: "'qstash.upstash.io'",
+      },
+      {
+        protocol: "https",
+        hostname: "book-library-lac.vercel.app",
+      },
     ],
   },
 

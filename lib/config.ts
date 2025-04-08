@@ -11,8 +11,8 @@ const config = {
     upstash: {
       redisUrl: process.env.UPSTASH_REDIS_URL!,
       redisToken: process.env.UPSTASH_REDIS_TOKEN!,
-      qstashUrl: process.env.UPSLASH_QSTASH_URL!,
-      qstashToken: process.env.UPSLASH_QSTASH_TOKEN!,
+      qstashUrl: process.env.QSTASH_URL!,
+      qstashToken: process.env.QSTASH_TOKEN!,
     },
     google: {
       username: process.env.GOOGLE_APP_EMAIL_USERNAME!,
