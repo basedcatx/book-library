@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import BookCoverSvg from "@/components/BookCoverSvg";
-import { IKImage } from "imagekitio-next";
+import { IKImage, ImageKitProvider } from "imagekitio-next";
 import config from "@/lib/config";
 
 type BookCoverVariant = "extraSmall" | "small" | "regular" | "medium" | "wide";
@@ -43,7 +43,7 @@ const BookCover = ({
         style={{ left: "12%", width: "87.5%", height: "88%" }}
       >
         <IKImage
-          src={coverUrl}
+          src={`${config.env.imagekit.urlEndpoint}/${coverUrl}`}
           urlEndpoint={config.env.imagekit.urlEndpoint}
           alt={"book cover"}
           fill

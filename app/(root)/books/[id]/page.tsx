@@ -19,10 +19,10 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!session) return redirect("/sign-in");
 
-  console.log("Book detail found", bookDetail);
+  console.log("Book detail found", bookDetails);
   return (
     <>
-      <BookOverview {...bookDetails} userId={session?.user?.id as string} />
+      <BookOverview {...bookDetails} />
       <div className={"book-details"}>
         <div className={"flex-[1.5]"}>
           <section className={"mt-10 flex flex-col gap-7"}>

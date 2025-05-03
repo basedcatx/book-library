@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import BookOverview from "@/components/BookOverview";
 import BookList from "@/components/BookList";
-import { sampleBooks } from "@/app/constants";
 import { auth } from "@/auth";
 import { db } from "@/database/drizzle";
 import { books } from "@/database/schema";
@@ -19,7 +18,7 @@ const Page = async () => {
 
   return (
     <Fragment>
-      <BookOverview {...latestBooks[0]} userId={session?.user?.id as string} />
+      <BookOverview {...latestBooks[0]} />
       <BookList
         title="Latest Books"
         books={latestBooks.slice(1)}

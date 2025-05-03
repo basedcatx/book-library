@@ -44,8 +44,8 @@ const BookOverview = ({
           </p>
         </div>
         <p className="book-description">{description}</p>
-        <Button className="book-overview_btn">
-          <Loading isHidden={false} />
+        <Button className="book-overview_btn" onClick={() => {}} }>
+          <Loading isHidden={true} />
           <Image src="/icons/book.svg" alt="book" width={20} height={20} />
           <p className="font-bebas-neue text-xl text-dark-400">Borrow</p>
         </Button>

@@ -73,7 +73,7 @@ const FileUpload = ({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const onError = (err: any) => {
+  const onError = (err: unknown) => {
     setFile(null);
     console.log(err);
     toast({
@@ -225,7 +225,6 @@ const FileUpload = ({
         {file && type === "Video" && (
           <IKVideo
             path={file.filePath}
-            alt={file.name}
             width={500}
             height={300}
             onLoad={() => setIsHidden(true)}

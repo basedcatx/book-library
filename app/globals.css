@@ -316,7 +316,7 @@
   }
 
   .book-details h3 {
-    @apply text-xl font-semibold text-primary;
+    @apply text-xl font-semibold text-primary text-light-200;
   }
 
   /* Library */
