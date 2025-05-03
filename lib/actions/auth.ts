@@ -9,14 +9,13 @@ import { AuthCredentials } from "@/types";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
-import config from "@/lib/config";
-import { Client } from "@upstash/workflow";
-import { workFlowClient } from "@/lib/workflow";
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password" | "fullName">,
+  params: Pick<AuthCredentials, "email" | "password">,
 ) => {
   const { email, password } = params;
+
+  console.log("I am here!");
 
   const ip = (await headers()).get("x-forwarded-for") || "localhost";
   const { success } = await ratelimit.limit(ip);
@@ -37,7 +36,7 @@ export const signInWithCredentials = async (
     }
 
     return { success: true };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err, "Automatic signIn with failed!");
     return {
       success: false,
@@ -69,23 +68,23 @@ export const signUp = async (params: AuthCredentials) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    await workFlowClient.trigger({
-      url: `${config.env.prodApiEndpoint!}/api/workflows/onboarding`,
-      body: {
-        email,
-        fullName,
-      },
-    });
+    // await workFlowClient.trigger({
+    //   url: `${config.env.prodApiEndpoint!}/api/workflows/onboarding`,
+    //   body: {
+    //     email,
+    //     fullName,
+    //   },
+    // });
 
     await db.insert(users).values({
-      fullName,
+      fullName: fullName!,
       email,
       universityId,
       password: hashedPassword,
       universityCard,
     });
 
-    await signInWithCredentials({ email, password, fullName });
+    await signInWithCredentials({ email, password });
 
     return { success: true };
   } catch (error) {

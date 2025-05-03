@@ -12,7 +12,6 @@ const Page = () => {
       defaultValues={{
         email: "",
         password: "",
-        fullName: "",
       }}
       onSubmit={signInWithCredentials}
     />

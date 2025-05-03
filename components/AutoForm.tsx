@@ -26,7 +26,7 @@ import {
 } from "react-hook-form";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/app/constants";
-import ImageUpload from "@/components/ImageUpload";
+import FileUpload from "@/components/FileUpload";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
@@ -55,7 +55,10 @@ const AutoForm = <T extends FieldValues>({
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    setIsHidden(false);
+    setIsHidden(true);
+
+    console.log("I am now in handleSubmit!");
+
     if (!data) {
       setIsHidden(true);
       return;
@@ -113,7 +116,14 @@ const AutoForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {key.toString() === "universityCard" ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        onFileChange={field.onChange}
+                        type={"Image"}
+                        accept={"image/*"}
+                        placeholder={"Upload your  ID"}
+                        folder={"ids"}
+                        variant={"dark"}
+                      />
                     ) : (
                       <Input
                         required

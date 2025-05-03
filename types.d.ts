@@ -1,7 +1,7 @@
 import { FieldValues } from "react-hook-form";
 
 interface Book {
-  id: number;
+  id: string;
   title: string;
   author: string;
   genre: string;
@@ -11,15 +11,26 @@ interface Book {
   description: string;
   coverColor: string;
   coverUrl: string;
-  videoUrl: string;
   summary: string;
   isLoanedBook?: boolean;
 }
 
 interface AuthCredentials extends FieldValues {
-  fullName: string;
+  fullName?: string;
   email: string;
   password: string;
   universityId: string;
   universityCard: string;
+}
+
+interface BookParams {
+  title: string;
+  author: string;
+  genre: string;
+  rating: number;
+  coverUrl: string;
+  coverColor: string;
+  description: string;
+  totalCopies: number;
+  summary: string;
 }
