@@ -15,6 +15,11 @@ interface Book {
   isLoanedBook?: boolean;
 }
 
+interface BorrowBookParams {
+  bookId: string;
+  userId: string;
+}
+
 interface AuthCredentials extends FieldValues {
   fullName?: string;
   email: string;

@@ -18,7 +18,7 @@ const Page = async () => {
 
   return (
     <Fragment>
-      <BookOverview {...latestBooks[0]} />
+      <BookOverview {...latestBooks[0]} userid={session?.user?.id!} />
       <BookList
         title="Latest Books"
         books={latestBooks.slice(1)}

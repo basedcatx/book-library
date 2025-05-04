@@ -22,7 +22,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("Book detail found", bookDetails);
   return (
     <>
-      <BookOverview {...bookDetails} />
+      <BookOverview {...bookDetails} id={bookId} userid={session?.user?.id!} />
       <div className={"book-details"}>
         <div className={"flex-[1.5]"}>
           <section className={"mt-10 flex flex-col gap-7"}>
