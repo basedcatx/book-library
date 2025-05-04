@@ -1,11 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import BookCover from "@/components/BookCover";
 import { Book } from "@/types";
-import Loading from "@/components/Loading";
+import BorrowBook from "@/components/BorrowBook";
+import { db } from "@/database/seed";
+import users from "@/database/schema";
+import { eq } from "drizzle-orm";
 
-const BookOverview = ({
+interface Props extends Book {
+  userid: string;
+}
+const BookOverview = async ({
   title,
   author,
   genre,
@@ -15,7 +20,24 @@ const BookOverview = ({
   description,
   coverColor,
   coverUrl,
-}: Book) => {
+  id,
+  userid,
+}: Props) => {
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, userid))
+    .limit(1);
+
+  if (!user) return null;
+
+  const borrowEligibility = {
+    isEligible: available_copies > 0 && user.status === "APPROVED",
+    message:
+      available_copies <= 0
+        ? "No more available copies of this book. Sorry!"
+        : "You account hasn't been approved. You can't borrow books just yet!",
+  };
   return (
     <section className="book-overview">
       <div className="flex flex-1 flex-col gap-5">
@@ -44,11 +66,11 @@ const BookOverview = ({
           </p>
         </div>
         <p className="book-description">{description}</p>
-        <Button className="book-overview_btn" onClick={() => {}} }>
-          <Loading isHidden={true} />
-          <Image src="/icons/book.svg" alt="book" width={20} height={20} />
-          <p className="font-bebas-neue text-xl text-dark-400">Borrow</p>
-        </Button>
+        <BorrowBook
+          bookId={id}
+          userId={userid!}
+          borrowEligibility={borrowEligibility}
+        />
       </div>
       <div className="relative flex flex-1 justify-center">
         <div className="relative">
