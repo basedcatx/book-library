@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Loading from "@/components/Loading";
 import Image from "next/image";
 import { BorrowBookParams } from "@/types";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 import { borrowBook } from "@/lib/actions/book";
 interface Props extends BorrowBookParams {
@@ -40,7 +40,7 @@ const BorrowBook = ({
           description: "Book borrowed successfully!",
         });
 
-        router.push("/profile");
+        router.push(`/books/${bookId}`);
       } else {
         toast({
           title: "Error",

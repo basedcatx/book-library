@@ -29,8 +29,6 @@ const BookOverview = async ({
     .where(eq(users.id, userid))
     .limit(1);
 
-  if (!user) return null;
-
   const borrowEligibility = {
     isEligible: available_copies > 0 && user.status === "APPROVED",
     message:
@@ -47,7 +45,7 @@ const BookOverview = async ({
             By <span className="font-semibold text-light-200">{author}</span>
           </p>
           <p>
-            Category{" "}
+            Category
             <span className="font-semibold text-light-200">{genre}</span>
           </p>
 
@@ -66,11 +64,13 @@ const BookOverview = async ({
           </p>
         </div>
         <p className="book-description">{description}</p>
-        <BorrowBook
-          bookId={id}
-          userId={userid!}
-          borrowEligibility={borrowEligibility}
-        />
+        {user && (
+          <BorrowBook
+            bookId={id}
+            userId={userid!}
+            borrowEligibility={borrowEligibility}
+          />
+        )}
       </div>
       <div className="relative flex flex-1 justify-center">
         <div className="relative">

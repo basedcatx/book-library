@@ -20,6 +20,7 @@ export const bookSchema = z.object({
   rating: z.coerce.number().min(1).max(5),
   totalCopies: z.coerce.number().int().positive().lte(10000),
   coverUrl: z.string().nonempty(),
+  videoUrl: z.string().trim().nonempty(),
   coverColor: z
     .string()
     .trim()

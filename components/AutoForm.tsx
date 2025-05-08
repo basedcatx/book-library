@@ -120,8 +120,8 @@ const AutoForm = <T extends FieldValues>({
                         onFileChange={field.onChange}
                         type={"Image"}
                         accept={"image/*"}
-                        placeholder={"Upload your  ID"}
-                        folder={"ids"}
+                        placeholder={"Upload your ID"}
+                        folder={"xbooks/users/idcards"}
                         variant={"dark"}
                       />
                     ) : (

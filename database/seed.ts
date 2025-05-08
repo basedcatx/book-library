@@ -4,6 +4,7 @@ import { books } from "@/database/schema";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
+import dummyBooks from "@/public/dummybooks.json";
 
 config({
   path: `../.env.local`,
@@ -40,24 +41,31 @@ const uploadToImageKit = async (
 const seed = async () => {
   console.log("Seeding database...");
 
-  try {
-    for (const book of sampleBooks) {
+  for (const book of dummyBooks) {
+    try {
+      console.log(`Seeding book: ${book.title}`);
       const coverUrl = (await uploadToImageKit(
         book.coverUrl,
         `${book.title}.jpg`,
-        "/books/covers",
+        "/xbooks/books/covers",
+      )) as string;
+
+      const videoUrl = (await uploadToImageKit(
+        book.videoUrl,
+        `${book.title}.mp4`,
+        "/xbooks/books/videos",
       )) as string;
 
       await db.insert(books).values({
         ...book,
         coverUrl,
+        videoUrl,
       });
 
       console.log("Seeding successfully!");
+    } catch (err) {
+      console.error(`Error while seeding book ${book.title}`);
+      console.error("Error: Seeding database...", err);
     }
-  } catch (err) {
-    console.error("Error: Seeding database...", err);
   }
 };
-
-seed();

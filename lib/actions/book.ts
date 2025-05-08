@@ -47,7 +47,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
     console.error(err);
     return {
       success: false,
-      error: err,
+      error: err as string,
     };
   }
 };

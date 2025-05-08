@@ -6,9 +6,12 @@ import { db } from "@/database/drizzle";
 import { books } from "@/database/schema";
 import { desc } from "drizzle-orm";
 import { Book } from "@/types";
+import { redirect } from "next/navigation";
 
 const Page = async () => {
   const session = await auth();
+
+  if (!session?.user?.id) redirect("/sign-in");
 
   const latestBooks = (await db
     .select()
@@ -18,7 +21,7 @@ const Page = async () => {
 
   return (
     <Fragment>
-      <BookOverview {...latestBooks[0]} userid={session?.user?.id!} />
+      <BookOverview {...latestBooks[0]} userid={session?.user?.id} />
       <BookList
         title="Latest Books"
         books={latestBooks.slice(1)}

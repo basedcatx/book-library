@@ -61,6 +61,7 @@ const BookForm = ({ type, ...book }: Props) => {
       rating: 1,
       totalCopies: 1,
       coverUrl: "",
+      videoUrl: "",
       summary: "",
     },
   });
@@ -88,7 +89,7 @@ const BookForm = ({ type, ...book }: Props) => {
                     required
                     placeholder={"Book Title"}
                     {...field}
-                    className={"form-form_input"}
+                    className={"form-input"}
                   />
                 </FormControl>
                 <FormMessage />
@@ -109,7 +110,7 @@ const BookForm = ({ type, ...book }: Props) => {
                     required
                     placeholder={"Book author"}
                     {...field}
-                    className={"form-form_input"}
+                    className={"form-input"}
                   />
                 </FormControl>
                 <FormMessage />
@@ -130,7 +131,7 @@ const BookForm = ({ type, ...book }: Props) => {
                     required
                     placeholder={"Book genre"}
                     {...field}
-                    className={"form-form_input"}
+                    className={"form-input"}
                   />
                 </FormControl>
                 <FormMessage />
@@ -151,7 +152,7 @@ const BookForm = ({ type, ...book }: Props) => {
                     required
                     placeholder={"Book rating"}
                     {...field}
-                    className={"form-form_input"}
+                    className={"form-input"}
                     type={"number"}
                     min={1}
                     max={5}
@@ -175,7 +176,7 @@ const BookForm = ({ type, ...book }: Props) => {
                     required
                     placeholder={"Total Copies"}
                     {...field}
-                    className={"form-form_input"}
+                    className={"form-input"}
                     type={"number"}
                     min={1}
                     max={10000}
@@ -264,6 +265,29 @@ const BookForm = ({ type, ...book }: Props) => {
                     rows={5}
                     placeholder={"Book summary"}
                     className={"book-form_input"}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={auth_form.control}
+            name={"videoUrl"}
+            render={({ field }) => (
+              <FormItem className={"flex flex-col gap-1"}>
+                <FormLabel className={"text-base font-normal text-dark-500"}>
+                  Book Video
+                </FormLabel>
+                <FormControl>
+                  <FileUpload
+                    type={"Video"}
+                    accept={"video/*"}
+                    placeholder={"Upload a video about the book/intro"}
+                    folder={"/xbook/books/video"}
+                    variant={"light"}
+                    onFileChange={field.onChange}
                   />
                 </FormControl>
                 <FormMessage />
