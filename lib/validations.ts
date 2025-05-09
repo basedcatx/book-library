@@ -29,9 +29,5 @@ export const bookSchema = z.object({
 });
 
 export const searchBookSchema = z.object({
-  title: z
-    .string()
-    .trim()
-    .nonempty("Please enter a valid book name")
-    .min(1, "Please enter a valid book name"),
+  title: z.string().trim().nonempty("Book name cannot be empty"),
 });

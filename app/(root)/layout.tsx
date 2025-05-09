@@ -14,19 +14,21 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/sign-in");
   }
 
-  after(async () => {
-    if (!session?.user?.id) return;
+  if (!session?.user?.id) return;
 
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, session?.user?.id))
+    .limit(1);
+
+  after(async () => {
     // get the user and see if the last activity date is today!
 
-    const user = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, session?.user?.id))
-      .limit(1);
-
-    if (user[0].lastActivityDate! === new Date().toISOString().slice(0, 10))
+    if (user.lastActivityDate! === new Date().toISOString().slice(0, 10))
       return;
+
+    if (!session?.user?.id) return;
 
     await db
       .update(users)
@@ -39,7 +41,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="root-container mx-auto dark">
       <div className="max-w-7xl">
-        <Header />
+        <Header role={user.role || "USER"} />
         <div className="mt-20 pb-20">{children}</div>
       </div>
     </main>

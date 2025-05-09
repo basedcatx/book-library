@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { signUserOut } from "@/lib/actions/auth";
 
-const Header = () => {
+const Header = ({ role }: { role: "ADMIN" | "USER" }) => {
   const path = usePathname();
 
   return (
@@ -38,7 +38,6 @@ const Header = () => {
         >
           Search
         </Link>
-
         <Link
           href={"/profile"}
           className={cn(
@@ -51,6 +50,11 @@ const Header = () => {
           Profile
         </Link>
 
+        {role === "ADMIN" && (
+          <Link href={"/admin"} className={cn("font-semibold", "text-red-400")}>
+            Admin
+          </Link>
+        )}
         <a
           className={
             "my-2 cursor-pointer flex gap-1 items-center font-ibm-plex-sans"
