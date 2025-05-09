@@ -1,25 +1,28 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Session } from "next-auth";
-import { db } from "@/database/drizzle";
-import users from "@/database/schema";
-import { eq } from "drizzle-orm";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { IdCardImage } from "@/components/IDCardImage";
 
-const IdCard = async ({ session }: { session: Session }) => {
+interface Props {
+  id: string;
+  fullName: string;
+  email: string;
+  universityId: string;
+  password: string;
+  universityCard: string;
+  status: "PENDING" | "APPROVED" | "REJECTED";
+  role: "USER" | "ADMIN" | null;
+  lastActivityDate: string;
+  createdAt: Date | null;
+}
+
+const IdCard = async ({ session, user }: { session: Session; user: Props }) => {
   if (!session?.user?.id) return null;
 
-  const currentUserAccount = (
-    await db
-      .select()
-      .from(users)
-      .where(eq(users.id, session?.user?.id))
-      .limit(1)
-  )[0];
-
+  const currentUserAccount = user;
   if (!currentUserAccount) redirect("/sign-up");
 
   let currentStatus;
@@ -38,7 +41,7 @@ const IdCard = async ({ session }: { session: Session }) => {
   return (
     <div
       className={
-        "gradient-blue relative rounded-xl px-8 py-20 text-white font-ibm-plex-sans"
+        "gradient-blue relative rounded-xl px-8 py-20 text-white font-ibm-plex-sans max-h-[600px] h-fit flex-shrink"
       }
     >
       {/*Floating thingy on the top*/}

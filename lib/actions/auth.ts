@@ -4,7 +4,7 @@ import users from "@/database/schema";
 import { db } from "@/database/drizzle";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { AuthCredentials } from "@/types";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
@@ -91,4 +91,8 @@ export const signUp = async (params: AuthCredentials) => {
     console.log(error, "Sign up failed!");
     return { success: false, error: "Sign up error! Please try again later!" };
   }
+};
+
+export const signUserOut = async () => {
+  await signOut();
 };

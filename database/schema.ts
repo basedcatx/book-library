@@ -6,7 +6,6 @@ import {
   primaryKey,
   text,
   timestamp,
-  unique,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -22,7 +21,7 @@ export const BORROW_STATUS_ENUM = pgEnum("borrow_status", [
   "RETURNED",
 ]);
 
-const users = pgTable("users", {
+export const users = pgTable("users", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
   fullName: varchar("full_name", {
     length: 255,
@@ -59,7 +58,7 @@ export const books = pgTable("books", {
     .defaultNow(),
 });
 
-export const borrowRecordsType = pgTable(
+export const borrowRecords = pgTable(
   "borrow_records",
   {
     id: uuid("id").notNull().defaultRandom().unique(),

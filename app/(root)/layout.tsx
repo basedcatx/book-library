@@ -37,7 +37,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   });
 
   return (
-    <main className="root-container">
+    <main className="root-container mx-auto dark">
       <div className="max-w-7xl">
         <Header />
         <div className="mt-20 pb-20">{children}</div>

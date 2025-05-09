@@ -46,7 +46,7 @@ const BookOverview = async ({
           </p>
           <p>
             Category
-            <span className="font-semibold text-light-200">{genre}</span>
+            <span className="font-semibold text-light-200"> {genre}</span>
           </p>
 
           <div className="flex flex-row gap-1">

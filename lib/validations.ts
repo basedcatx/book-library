@@ -27,3 +27,11 @@ export const bookSchema = z.object({
     .regex(/^#[0-9A-F]{6}$/i),
   summary: z.string().trim().min(10),
 });
+
+export const searchBookSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .nonempty("Please enter a valid book name")
+    .min(1, "Please enter a valid book name"),
+});

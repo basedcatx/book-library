@@ -98,6 +98,7 @@ export default {
       },
       screens: {
         xs: "480px",
+        sm: "890px",
       },
       borderRadius: {
         lg: "var(--radius)",
