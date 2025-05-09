@@ -63,7 +63,8 @@ const Header = ({ role }: { role: "ADMIN" | "USER" }) => {
         >
           <Image
             src={"/icons/logout.svg"}
-            alt={"admin"}
+            alt={"sign out"}
+            className={"rotate-180"}
             width={22}
             height={22}
           />

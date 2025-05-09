@@ -30,6 +30,8 @@ import FileUpload from "@/components/FileUpload";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -48,6 +50,7 @@ const AutoForm = <T extends FieldValues>({
   const isSignedIn = type === "SIGN_IN";
 
   const [isHidden, setIsHidden] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const auth_form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
@@ -55,14 +58,13 @@ const AutoForm = <T extends FieldValues>({
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    setIsHidden(true);
-
-    console.log("I am now in handleSubmit!");
+    setIsHidden(false);
 
     if (!data) {
       setIsHidden(true);
       return;
     }
+
     const res = await onSubmit(data);
 
     if (res?.success) {
@@ -124,6 +126,27 @@ const AutoForm = <T extends FieldValues>({
                         folder={"xbooks/users/idcards"}
                         variant={"dark"}
                       />
+                    ) : key.toString() === "password" ? (
+                      <div
+                        className={
+                          "form-input rounded-md relative flex items-center"
+                        }
+                      >
+                        <Input
+                          required
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                          className={"form-input"}
+                        />
+                        <Image
+                          className={cn("absolute right-2 cursor-pointer")}
+                          src={`/icons/eye-${showPassword ? "open" : "close"}.svg`}
+                          alt={"show password"}
+                          width={20}
+                          height={20}
+                          onClick={() => setShowPassword((s) => !s)}
+                        />
+                      </div>
                     ) : (
                       <Input
                         required

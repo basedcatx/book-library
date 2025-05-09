@@ -14,6 +14,8 @@ const Page = () => {
     undefined,
   );
 
+  const [title, setTitle] = useState<string | null>(null);
+
   const [page, setPage] = useState(1);
 
   const startIndex = (page - 1) * 6;
@@ -28,9 +30,13 @@ const Page = () => {
   );
 
   const handleSearch = async (data: { title: string }) => {
-    const result = await searchBook(data);
-    console.log(result);
-    setSearchResults(result);
+    try {
+      setTitle(data.title);
+      const result = await searchBook(data);
+      setSearchResults(result);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -44,14 +50,18 @@ const Page = () => {
         </p>
         <SearchForm
           onSubmit={handleSearch}
-          onClear={() => setSearchResults(undefined)}
+          onClear={() => {
+            setSearchResults(undefined);
+            setTitle(null);
+          }}
         />
       </section>
 
       {searchResults && (
-        <section className={"mt-10"}>
+        <section className={"mt-10 xl:mt-16"}>
           <p className={"font-ibm-plex-sans text-lg id-text-heading-color"}>
-            Search Results
+            Search Result for{" "}
+            {title && <span className={"text-light-200"}>{title}</span>}
           </p>
           {searchResults.length <= 0 ? (
             <div className={"mt-12"}>
@@ -63,9 +73,19 @@ const Page = () => {
                 height={200}
               />
               <p
-                className={"font-ibm-plex-sans text-light-200 mt-4 text-center"}
+                className={
+                  "font-ibm-plex-sans font-bold text-xl mt-4 text-center"
+                }
               >
-                Sorry no books found!
+                No Results Found
+              </p>{" "}
+              <p
+                className={
+                  "font-ibm-plex-sans text-light-100/80 mt-4 text-center max-w-lg mx-auto"
+                }
+              >
+                We couldn&#39;t find any matching your search. Try using
+                different keywords or check for typos.
               </p>
             </div>
           ) : (
