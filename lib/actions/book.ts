@@ -5,6 +5,7 @@ import { db } from "@/database/drizzle";
 import { books, borrowRecords } from "@/database/schema";
 import { eq, ilike } from "drizzle-orm";
 import dayjs from "dayjs";
+import { NeonDbError } from "@neondatabase/serverless";
 
 export const borrowBook = async (params: BorrowBookParams) => {
   const { userId, bookId } = params;
@@ -43,18 +44,26 @@ export const borrowBook = async (params: BorrowBookParams) => {
       data: JSON.parse(JSON.stringify(record)),
     };
   } catch (err: unknown) {
-    console.error(err);
-    if (err.constraint && err.constraint.length > 0) {
-      if (err.constraint === "user_and_book_must_be_unique") {
+    if (err instanceof NeonDbError) {
+      if (err.constraint && err.constraint.length > 0) {
+        if (err.constraint === "user_and_book_must_be_unique") {
+          return {
+            success: false,
+            error: "Sorry you can't borrow the same book twice",
+          };
+        }
         return {
           success: false,
-          error: "Sorry you can't borrow the same book twice",
+          error: err.message ? err.message : err.toString(),
         };
       }
     }
+
+    console.error(err);
+
     return {
       success: false,
-      error: err.message ? err.message : err.toString(),
+      error: "An error occurred, please check the logs",
     };
   }
 };
