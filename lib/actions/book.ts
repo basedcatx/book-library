@@ -48,7 +48,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
       if (err.constraint === "user_and_book_must_be_unique") {
         return {
           success: false,
-          error: "Sorry you can't borrow thesame book twice",
+          error: "Sorry you can't borrow the same book twice",
         };
       }
     }
